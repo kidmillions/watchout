@@ -38,12 +38,34 @@ var render = function(data){
     d3.select(this)
     .attr("cx", d3.event.x)
     .attr("cy",d3.event.y);
+
   };
+
+  var checkForCollisions = function(p){
+    var dude = d3.select(p);
+    var allAsteroids = d3.selectAll("image");
+    var collisionBuffer = parseInt(dude.attr("r")) + 15;
+
+    for(var i = 0; i<allAsteroids.length; i++){
+      var currentAsteroid = allAsteroids[i];
+      var collided = currentAsteroid.attr("x") <= parseInt(dude.attr("cx"));
+      if()
+      collide: function(target){
+         return target.attr('cx') <= (parseInt(this.attr("x")) + collisionBuffer)
+         && target.attr("cx") >= (parseInt(this.attr("x")) - collisionBuffer)
+         && target.attr('cy') <= (parseInt(this.attr("y")) + collisionBuffer)
+         && target.attr('cy') >= (parseInt(this.attr("y")) - collisionBuffer);
+    }
+
+  };
+
 
   var drag = d3.behavior.drag().on("drag", moveCircle);
 
   player.call(drag);
 // }
+
+// var asteroids = d3.selectAll("image");
 
 
 // var checkForAllCollisions = function() {
@@ -67,13 +89,6 @@ var makeAsteroids = function() {
       id: index,
       x: Math.random() * width,
       y: Math.random() * height
-      // collide: function(target){
-      //   var collisionBuffer = parseInt(target.attr("r")) + 15;
-      //    return target.attr('cx') <= (parseInt(this.attr("x")) + collisionBuffer)
-      //    && target.attr("cx") >= (parseInt(this.attr("x")) - collisionBuffer)
-      //    && target.attr('cy') <= (parseInt(this.attr("y")) + collisionBuffer)
-      //    && target.attr('cy') >= (parseInt(this.attr("y")) - collisionBuffer);
-      // }
     };
   });
 };

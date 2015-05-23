@@ -1,6 +1,6 @@
 // start slingin' some d3 here.
-var width = 500;
-var height = 500;
+var width = 1500;
+var height = 700;
 var nAsteroids = 10;
 
 
@@ -21,11 +21,12 @@ var render = function(data){
   asteroids.transition().duration(900)
   .attr("x", function(d) {return d.x})
   .attr("y", function(d) {return d.y});
+
   asteroids.exit()
     .remove();
 };
 
-var renderPlayer = function(){
+// var renderPlayer = function(){
   var player = svg
     .append('circle')
       .attr('class', 'circle')
@@ -42,18 +43,45 @@ var renderPlayer = function(){
   var drag = d3.behavior.drag().on("drag", moveCircle);
 
   player.call(drag);
-}
+// }
+
+
+// var checkForAllCollisions = function() {
+//   var asteroidsForCollision = d3.selectAll("image").data();
+//   for(var i = 0; i < asteroidsForCollision.length; i++){
+//     if(asteroidsForCollision[i].collide(player)){
+//       console.log("collided");
+//     }
+//   }
+// };
+
+// setInterval(checkForAllCollisions, 10);
+
+
+
+
+
 var makeAsteroids = function() {
   return _.range(0, nAsteroids).map(function(index) {
     return {
       id: index,
       x: Math.random() * width,
       y: Math.random() * height
+      // collide: function(target){
+      //   var collisionBuffer = parseInt(target.attr("r")) + 15;
+      //    return target.attr('cx') <= (parseInt(this.attr("x")) + collisionBuffer)
+      //    && target.attr("cx") >= (parseInt(this.attr("x")) - collisionBuffer)
+      //    && target.attr('cy') <= (parseInt(this.attr("y")) + collisionBuffer)
+      //    && target.attr('cy') >= (parseInt(this.attr("y")) - collisionBuffer);
+      // }
     };
   });
 };
 
-renderPlayer();
+
+
+
+// renderPlayer();
 
 var play = function() {
   var turn = function() {
@@ -66,4 +94,12 @@ var play = function() {
   setInterval(turn, 1000);
 }
 play();
+
+
+//prototype takes an obj
+  //obj is tested whether it occupies the same space
+
+
+
+
 
